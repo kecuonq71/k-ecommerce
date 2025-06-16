@@ -34,6 +34,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => ['required', 'string', 'email'],
+            'phone' => ['nullable', 'string', 'digits:10'],
             'password' => ['required', 'string'],
         ];
     }
