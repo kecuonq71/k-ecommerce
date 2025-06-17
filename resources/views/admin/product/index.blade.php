@@ -32,7 +32,8 @@
                             </div>
                         </form>
                     </div>
-                    <a class="tf-button style-1 w208" href="{{ route('admin.product.create') }}"><i class="icon-plus"></i>Add new</a>
+                    <a class="tf-button style-1 w208" href="{{ route('admin.product.create') }}"><i
+                            class="icon-plus"></i>Add new</a>
                 </div>
                 <div class="table-responsive">
                     @if (@session('message'))
@@ -53,7 +54,7 @@
                                 <th>Featured</th>
                                 <th>Stock</th>
                                 <th>Quantity</th>
-                                <th>Action</th>
+                                <th colspan="2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,26 +79,26 @@
                                     <td>{{ $product->featured ? 'Yes' : 'No' }}</td>
                                     <td>{{ $product->stock_status === 'in_stock' ? 'In stock' : 'Out of stock' }}</td>
                                     <td>{{ $product->quantity }}</td>
-                                    <td>
+                                    <td colspan="2">
                                         <div class="list-icon-function">
-                                            <a href="#" target="_blank">
+                                            <a href="{{ route('admin.product.show', $product) }}" target="_blank">
                                                 <div class="item eye">
                                                     <i class="icon-eye"></i>
                                                 </div>
                                             </a>
-                                            <a href="#">
+                                            <a href="{{ route('admin.product.edit', $product) }}">
                                                 <div class="item edit">
                                                     <i class="icon-edit-3"></i>
                                                 </div>
                                             </a>
-                                            <form action="#" method="POST">
+                                            <form action="{{ route('admin.product.destroy', $product) }}" method="POST" class="item delete" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <div class="item text-danger delete">
+                                                <button type="submit" class="text-danger"
+                                                    style="background:none; border:none;">
                                                     <i class="icon-trash-2"></i>
-                                                </div>
+                                                </button>
                                             </form>
-                                        </div>
                                     </td>
                                 </tr>
                             @empty

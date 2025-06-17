@@ -58,7 +58,6 @@ class ProductController extends Controller
             );
         }
 
-
         Product::create($data);
 
         return redirect()->route('admin.product.index')->with('message', 'Product created successfully.');
@@ -67,32 +66,77 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Product $product)
     {
-        //
+        return view('admin.product.show', [
+            'product' => $product, 
+            'categories' => Category::all(),
+            'brands' => Brand::all(),
+            'readonly' => true,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        //
+        return view('admin.product.edit', [
+            'product' => $product,
+            'categories' => Category::all(),
+            'brands' => Brand::all()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        $data = $request->validated();
+        $data['slug'] = Str::slug($data['slug']);
+
+        if($request->hasFile('image')) {
+
+            if($product->image) {
+                Storage::disk('public')->delete('uploads/products/' . $product->image);
+            }
+            $data['image'] = $this->uploadImage($request->file('image'), 'products');
+        }
+
+        if ($request->hasFile('images')) {
+            $gallery = json_decode($product->gallery, true) ?? [];
+            foreach ($gallery as $image) {
+                Storage::disk('public')->delete('uploads/products/thumbnails/' . $image);
+            }
+            $data['gallery'] = json_encode(
+                $this->uploadMultipleImages($request->file('images'), 'products/thumbnails')
+            );
+        }
+
+        $product->update($data);
+        return redirect()->route('admin.product.index')->with('message', 'Product updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
-        //
+        if (!empty($product->image) && Storage::disk('public')->exists('uploads/products/' . $product->image)) {
+            Storage::disk('public')->delete('uploads/products/' . $product->image);
+        }
+
+        if (!empty($product->gallery)) {
+            $gallery = json_decode($product->gallery, true);
+            foreach ($gallery as $image) {
+                Storage::disk('public')->delete('uploads/products/thumbnails/' . $image);
+            }
+        }
+
+        $product->delete();
+
+        return redirect()->route('admin.product.index')->with('message', 'Product deleted successfully.');
     }
+    
 }
