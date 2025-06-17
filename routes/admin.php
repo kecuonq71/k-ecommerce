@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Middleware\AuthAdmin;
 
 Route::middleware(['auth', AuthAdmin::class])->prefix('admin')->name('admin.')->group(function () {
@@ -30,6 +31,9 @@ Route::middleware(['auth', AuthAdmin::class])->prefix('admin')->name('admin.')->
         Route::put('/update/{category}', [CategoryController::class, 'update'])->name('update');
         Route::delete(('/destroy/{category}'), [CategoryController::class, 'destroy'])->name('destroy');
     });
+
+    //Route for Products
+    Route::resource('products', ProductController::class)->names('product');
 
     
 });
