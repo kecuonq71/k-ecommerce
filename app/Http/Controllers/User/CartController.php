@@ -22,4 +22,32 @@ class CartController extends Controller
             $request->price)->associate(Product::class);
         return redirect()->back()->with('message', 'Product has been added to cart!');
     }
+
+    public function increase_cart_quantity($id) {
+        $product = Cart::instance('cart')->get($id);
+        $qty = $product->qty + 1;
+        Cart::instance('cart')->update($id, $qty);
+        
+        return redirect()->back();
+    }
+
+    public function decrease_cart_quantity($id) {
+        $product = Cart::instance('cart')->get($id);
+        $qty = $product->qty - 1;
+        Cart::instance('cart')->update($id, $qty);
+        
+        return redirect()->back();
+    }
+
+    public function remove_item($id) {
+        Cart::instance('cart')->remove($id);
+
+        return redirect()->back();
+    }
+
+    public function clear_cart(){
+        Cart::instance('cart')->destroy();
+
+        return redirect()->back();
+    }
 }

@@ -26,9 +26,15 @@ Route::prefix('shop')->name('shop.')->group(function () {
     Route::get('/product/{slug}', [ShopController::class, 'productDetail'])->name('product.detail');
 });
 
-Route::prefix('cart')->name('cart.')->group(function() {
+Route::prefix('cart')->name('cart.')->group(function () {
     Route::get('/', [CartController::class, 'index'])->name('index');
     Route::post('/add', [CartController::class, 'add_to_cart'])->name('add');
+    Route::put('/increase_quantity/{id}', [CartController::class, 'increase_cart_quantity'])->name('increase_quantity');
+    Route::put('/decrease_quantity/{id}', [CartController::class, 'decrease_cart_quantity'])->name('decrease_quantity');
+    Route::delete('remove/{id}', [CartController::class, 'remove_item'])->name('remove');
+    Route::delete('/clear', [CartController::class, 'clear_cart'])->name('clear');
+        
+    
 });
 
 require __DIR__ . '/auth.php';
