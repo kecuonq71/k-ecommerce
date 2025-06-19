@@ -43,6 +43,9 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    /**
+     * @param \App\Http\Requests\ProductRequest|\Illuminate\Http\Request $request
+     */
     public function store(ProductRequest $request)
     {
         $data = $request->validated();
@@ -90,6 +93,9 @@ class ProductController extends Controller
 
     /**
      * Update the specified resource in storage.
+     */
+    /**
+     * @param \App\Http\Requests\ProductRequest|\Illuminate\Http\Request $request
      */
     public function update(ProductRequest $request, Product $product)
     {

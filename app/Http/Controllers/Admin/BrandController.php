@@ -9,7 +9,9 @@ use App\Http\Requests\BrandRequest;
 use Illuminate\Support\Str;
 use App\Traits\UploadFile;
 use Illuminate\Support\Facades\Storage;
-
+/**
+ * @param \App\Http\Requests\BrandRequest|\Illuminate\Http\Request $request
+ */
 class BrandController extends Controller
 {
     /**
@@ -30,14 +32,16 @@ class BrandController extends Controller
         return view('admin.brand.create');
     }
 
-    
-    public function store(BrandRequest $brandRequest)
+    /**
+     * @param \App\Http\Requests\BrandRequest|\Illuminate\Http\Request $request
+     */
+    public function store(BrandRequest $request)
     {
-        $data = $brandRequest->validated();
+        $data = $request->validated();
         $data['slug'] = Str::slug($data['slug']);
 
-        if ($brandRequest->hasFile('image')) {
-            $data['image'] = $this->uploadImage($brandRequest->file('image'), 'brands');
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->uploadImage($request->file('image'), 'brands');
         }
 
         Brand::create($data);
@@ -60,6 +64,9 @@ class BrandController extends Controller
     }
 
     
+    /**
+ * @param \App\Http\Requests\BrandRequest|\Illuminate\Http\Request $request
+ */
     public function update(BrandRequest $request, Brand $brand)
     {
         $data = $request->validated();

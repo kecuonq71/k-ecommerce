@@ -34,6 +34,4 @@ Route::middleware(['auth', AuthAdmin::class])->prefix('admin')->name('admin.')->
 
     //Route for Products
     Route::resource('products', ProductController::class)->names('product');
-
-    
 });

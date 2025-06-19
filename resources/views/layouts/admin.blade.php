@@ -163,10 +163,9 @@
                         <div class="wrap">
                             <div class="header-left">
                                 <a href="index-2.html">
-                                    <img class="" id="logo_header_mobile" alt=""
-                                        src="images/logo/logo.png" data-light="images/logo/logo.png"
-                                        data-dark="images/logo/logo.png" data-width="154px" data-height="52px"
-                                        data-retina="images/logo/logo.png">
+                                    <img class="" id="logo_header_mobile" alt="" src="images/logo/logo.png"
+                                        data-light="images/logo/logo.png" data-dark="images/logo/logo.png"
+                                        data-width="154px" data-height="52px" data-retina="images/logo/logo.png">
                                 </a>
                                 <div class="button-show-hide">
                                     <i class="icon-menu-left"></i>
@@ -175,9 +174,8 @@
 
                                 <form class="form-search flex-grow">
                                     <fieldset class="name">
-                                        <input type="text" placeholder="Search here..." class="show-search"
-                                            name="name" tabindex="2" value="" aria-required="true"
-                                            required="">
+                                        <input type="text" placeholder="Search here..." class="show-search" name="name"
+                                            tabindex="2" value="" aria-required="true" required="">
                                     </fieldset>
                                     <div class="button-submit">
                                         <button class="" type="submit"><i class="icon-search"></i></button>
@@ -426,8 +424,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <form method="POST" action="{{ route('logout') }}"
-                                                    id="logout-form">
+                                                <form method="POST" action="{{ route('logout') }}" id="logout-form">
                                                     @csrf
                                                     <a href="#" class="user-item"
                                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
